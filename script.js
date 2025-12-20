@@ -175,22 +175,22 @@ function analyzeResult() {
 // GOOGLE SHEET
 // =======================
 function sendToGoogleSheet(resultText) {
-  const data = {
-    age: answers[0]?.join(", "),
-    weight: answers[1]?.join(", "),
-    symptoms: answers[2]?.join(", "),
-    sleep: answers[3]?.join(", "),
-    needs: answers[4]?.join(", "),
-    result: resultText
-  };
+  const params = new URLSearchParams();
+
+  params.append("age", answers[0]?.join(", ") || "");
+  params.append("weight", answers[1]?.join(", ") || "");
+  params.append("symptoms", answers[2]?.join(", ") || "");
+  params.append("sleep", answers[3]?.join(", ") || "");
+  params.append("needs", answers[4]?.join(", ") || "");
+  params.append("result", resultText || "");
 
   fetch("https://script.google.com/macros/s/AKfycbyyxZWewDQjfJM0TA0poTr1h-FZBz2A7n-VN7YKVywbKCbm2d6tzWWqf2ZoxrCTCaTGaw/exec", {
     method: "POST",
-    mode: "no-cors",
-    body: JSON.stringify(data)
+    body: params
   });
 }
 
 // INIT
 renderQuestion();
+
 
