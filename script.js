@@ -189,8 +189,5 @@ function sendToGoogleSheet(resultText) {
     body: params
   });
 }
-
 // INIT
 renderQuestion();
-
-
