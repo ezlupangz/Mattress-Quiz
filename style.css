@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  font-family: "Prompt", sans-serif;
+  background: linear-gradient(
+    rgba(0,0,0,0.45),
+    rgba(0,0,0,0.45)
+  ),
+  url("https://images.unsplash.com/photo-1505693416388-ac5ce068fe85");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
+
+.quiz-container {
+  max-width: 520px;
+  margin: auto;
+  padding: 40px 24px;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  margin-top: 40px;
+}
+
+/* ===== คำถาม ===== */
+.question-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 10px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #ff9800;
+}
+
+.question-hint {
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 24px;
+}
+
+/* ===== ตัวเลือก ===== */
+.option {
+  display: block;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-radius: 16px;
+  border: 2px solid #eee;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 16px;
+}
+
+.option input {
+  display: none;
+}
+
+.option.selected {
+  border-color: #ff9800;
+  background: #fff3e0;
+}
+
+/* ===== ปุ่ม ===== */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+button {
+  padding: 12px 24px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#nextBtn {
+  background: #ff9800;
+  color: white;
+}
+
+#backBtn {
+  background: #ddd;
+}
+
+/* ===== info box ===== */
+.info-box {
+  margin-top: 24px;
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+}
