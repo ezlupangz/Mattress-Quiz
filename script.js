@@ -13,19 +13,20 @@ const questions = [
     options: ["ต่ำกว่า 60 kg", "60–80 kg", "มากกว่า 80 kg"]
   },
   {
-    question: "อาการที่พบ (เลือกได้มากกว่า 1 ข้อ)",
+    question: "อาการป่วยที่พบ (เลือกได้มากกว่า 1 ข้อ)",
     type: "multi",
     options: [
       "ปวดหลัง / ปวดเอว",
       "ปวดคอ / ไหล่",
       "นอนร้อน เหงื่อออกง่าย",
-      "แพ้ง่าย / ไรฝุ่น"
+      "แพ้ง่าย / ไรฝุ่น",
+      "ไม่อาการเลย"
     ]
   },
   {
     question: "ท่านอนที่ใช้บ่อย",
     type: "single",
-    options: ["นอนหงาย", "นอนตะแคง", "นอนคว่ำ"]
+    options: ["นอนหงาย", "นอนตะแคง", "นอนคว่ำ","เปลี่ยนท่าบ่อย"]
   },
   {
     question: "สิ่งที่ท่านต้องการสำหรับที่นอนลูกใหม่ (เลือกได้หลายคำตอบ)",
@@ -144,6 +145,7 @@ backBtn.onclick = () => {
 // ANALYSIS (ตามที่คุณกำหนด)
 // =======================
 function analyzeResult() {
+  const ageGroup = answers[0]?.[0] || "";
   const needs = answers[4] || [];
 
   const noSpring = needs.includes("ต้องการที่นอนที่ไม่มีสปริง");
@@ -153,22 +155,46 @@ function analyzeResult() {
   const cool = needs.includes("ไม่ร้อน ระบายอากาศได้ดี");
   const soft = needs.includes("สัมผัสนุ่ม นอนสบาย");
 
+  const score = [light, back, firm, cool, soft].filter(Boolean).length;
+
+  // ======================
+  // 1️⃣ กลุ่มยางพารา (ไม่มีสปริง)
+  // ======================
   if (noSpring) {
-    let score = [light, back, firm, cool, soft].filter(Boolean).length;
-    return score >= 3 ? "ที่นอนยางพารา Premium" : "ที่นอนยางพารา";
+    return score >= 3
+      ? "ที่นอนยางพารา Premium"
+      : "ที่นอนยางพารา";
   }
 
+  // ======================
+  // 2️⃣ Pocket Spring
+  // ======================
   if (firm && back) {
     return cool
       ? "ที่นอน Pocket Spring ตัว Upgrade"
       : "ที่นอน Pocket Spring ธรรมดา";
   }
 
-  if (soft && cool && back) return "ที่นอนสปริงมาตรฐาน";
-  if (soft && cool) return "ที่นอนมาตรฐานพิเศษ";
-  if (soft && light) return "ที่นอนมาตรฐาน";
+  // ======================
+  // 3️⃣ ที่นอนสปริง (อายุไม่เกิน 50)
+  // ======================
+  const ageOk =
+    ageGroup === "ต่ำกว่า 25 ปี" ||
+    ageGroup === "25–40 ปี" ||
+    ageGroup === "มากกว่า 40 ปี";
 
-  return "ต้องการข้อมูลเพิ่มเติม";
+  if (ageOk) {
+    if (soft && cool && back) return "ที่นอนสปริงมาตรฐาน";
+    if (soft && cool) return "ที่นอนมาตรฐานพิเศษ";
+    if (soft || light) return "ที่นอนมาตรฐาน";
+  }
+
+  // ======================
+  // 4️⃣ Fallback (ไม่มีวันหลุด)
+  // ======================
+  if (cool || soft) return "ที่นอนมาตรฐานพิเศษ";
+
+  return "ที่นอนมาตรฐาน";
 }
 
 // =======================
