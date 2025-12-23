@@ -1,3 +1,95 @@
+const RESULT_MAP = {
+  "ที่นอนรุ่น GO": {
+    title: "ที่นอนรุ่น GO",
+    highlight: "รุ่นมาตรฐานขายดีที่สุด",
+    features: [
+      "เป็นที่นอนมาตรฐานของเรา",
+      "น้ำหนักเบา เคลื่อนย้ายง่าย",
+      "สัมผัสนุ่ม นอนสบาย",
+      "มีประกันจากทางโรงงาน"
+    ],
+    belief: "เหมาะกับบ้านที่ต้องการความเรียบง่าย อยู่แล้วสบาย ไม่จุกจิก"
+  },
+
+  "ที่นอนรุ่น GO Premium": {
+    title: "ที่นอนรุ่น GO Premium",
+    highlight: "รุ่นอัปเกรดสำหรับคนต้องการความสบายมากขึ้น",
+    features: [
+      "หนาและแน่นมาก",
+      "มีระบบระบายความร้อน",
+      "สัมผัสนุ่ม",
+      "มีประกันจากทางโรงงาน"
+    ],
+    belief: "คนไทยเชื่อว่าที่นอนหนา แน่น คือความมั่นคง หลับแล้วไม่ฝันร้าย"
+  },
+
+  "ที่นอนรุ่น Aida Bonnel": {
+    title: "ที่นอนรุ่น Aida Bonnel",
+    highlight: "ที่นอนสปริงมาตรฐานที่บาลานซ์ที่สุด",
+    features: [
+      "สัมผัสนุ่ม",
+      "มีระบบระบายความร้อน",
+      "เสริมยางพาราอัด ลดอาการปวดหลัง",
+      "มีประกันจากทางโรงงาน"
+    ],
+    belief: "เหมาะกับบ้านที่มีหลายวัย ใช้ร่วมกันได้ยาว ๆ"
+  },
+
+  "ที่นอนรุ่น Findi": {
+    title: "ที่นอนรุ่น Findi",
+    highlight: "Pocket Spring ที่รองรับสรีระดีที่สุด",
+    features: [
+      "สัมผัสนุ่มและแน่น",
+      "รองรับสรีระได้ดี",
+      "กระจายแรงทั้งตัว",
+      "ลดอาการปวดเมื่อยได้เป็นอย่างดี",
+      "มีประกันจากทางโรงงาน"
+    ],
+    belief: "คนทำงานหนักควรมีที่นอนที่ช่วยฟื้นฟูร่างกายตอนกลางคืน"
+  },
+
+  "ที่นอนรุ่น Aida Pocket Spring": {
+    title: "ที่นอนรุ่น Aida Pocket Spring",
+    highlight: "Pocket Spring ตัวท็อป",
+    features: [
+      "สัมผัสนุ่ม",
+      "มีระบบระบายความร้อน",
+      "รองรับสรีระ",
+      "กระจายแรงได้ดี",
+      "เสริมยางพาราอัด ลดปวดหลัง",
+      "มีประกันจากทางโรงงาน"
+    ],
+    belief: "เหมาะกับคนที่เชื่อว่าการนอนดี = พลังชีวิตดี"
+  },
+
+  "ที่นอน OPPA": {
+    title: "ที่นอน OPPA",
+    highlight: "ยางพาราแท้ ไม่มีสปริง",
+    features: [
+      "ไม่มีสปริงเลยทั้งลูก",
+      "อัดด้วยยางพาราแท้",
+      "น้ำหนักไม่หนักมาก ขนย้ายสะดวก",
+      "ช่วยบรรเทาอาการปวดหลัง",
+      "มีประกันจากทางโรงงาน"
+    ],
+    belief: "คนไทยจำนวนมากเชื่อว่าของธรรมชาติ อยู่แล้วสบายใจ"
+  },
+
+  "ที่นอน OPPA Premium": {
+    title: "ที่นอน OPPA Premium",
+    highlight: "ยางพาราระดับพรีเมียม",
+    features: [
+      "ไม่มีสปริงเลยทั้งลูก",
+      "ยางพาราแท้อัดแน่น",
+      "เสริมฟองน้ำเกรด A เพิ่มความยืดหยุ่น",
+      "บรรเทาอาการปวดหลัง",
+      "สัมผัสนุ่ม นอนสบายด้วยผ้าขนมิงค์",
+      "มีประกันจากทางโรงงาน"
+    ],
+    belief: "ถือเป็นการดูแลตัวเองและคนในบ้านแบบให้เกียรติชีวิต"
+  }
+};
+
 // =======================
 // QUESTIONS
 // =======================
@@ -106,35 +198,29 @@ function renderQuestion() {
 // BUTTONS
 // =======================
 nextBtn.onclick = () => {
-  const selected = document.querySelectorAll(
-    `input[name="q${currentQuestion}"]:checked`
-  );
+  const resultKey = analyzeResult();
+const data = RESULT_MAP[resultKey];
 
-  if (selected.length === 0) {
-    alert("กรุณาเลือกคำตอบก่อน");
-    return;
-  }
+questionBox.innerHTML = `
+  <h2 class="question-title">${data.title}</h2>
+  <p style="text-align:center;font-size:18px;font-weight:600;color:#ff9800">
+    ${data.highlight}
+  </p>
 
-  answers[currentQuestion] = [...selected].map(i => i.value);
-  currentQuestion++;
+  <ul style="max-width:500px;margin:20px auto;font-size:16px;line-height:1.6">
+    ${data.features.map(f => `<li>✔ ${f}</li>`).join("")}
+  </ul>
 
-  if (currentQuestion < questions.length) {
-    renderQuestion();
-  } else {
-    const result = analyzeResult();
-    questionBox.innerHTML = `
-      <h2 class="question-title">ผลลัพธ์ของคุณ</h2>
-      <p style="text-align:center;font-size:20px;font-weight:600">${result}</p>
-      <div class="info-box">
-        ทีมผู้เชี่ยวชาญจะติดต่อกลับเพื่อแนะนำที่นอนที่เหมาะสมที่สุด
-      </div>
-    `;
-    nextBtn.style.display = "none";
-    backBtn.style.display = "none";
+  <div class="info-box" style="font-size:14px">
+    💬 ${data.belief}
+  </div>
 
-    sendToGoogleSheet(result);
-  }
-};
+  <div style="text-align:center;margin-top:24px">
+    <button class="cta-btn">สอบถามรายละเอียดเพิ่มเติม</button>
+  </div>
+`;
+
+
 
 backBtn.onclick = () => {
   currentQuestion--;
@@ -162,8 +248,8 @@ function analyzeResult() {
   // ======================
   if (noSpring) {
     return score >= 3
-      ? "ที่นอนยางพารา Premium"
-      : "ที่นอนยางพารา";
+      ? "ที่นอน OPPA Premium"
+      : "ที่นอนOPPA";
   }
 
   // ======================
@@ -171,8 +257,8 @@ function analyzeResult() {
   // ======================
   if (firm && back) {
     return cool
-      ? "ที่นอน Pocket Spring ตัว Upgrade"
-      : "ที่นอน Pocket Spring ธรรมดา";
+      ? "ที่นอนรุ่น Aida Pocket Spring"
+      : "ที่นอนรุ่น Findi";
   }
 
   // ======================
@@ -184,17 +270,17 @@ function analyzeResult() {
     ageGroup === "มากกว่า 40 ปี";
 
   if (ageOk) {
-    if (soft && cool && back) return "ที่นอนสปริงมาตรฐาน";
-    if (soft && cool) return "ที่นอนมาตรฐานพิเศษ";
-    if (soft || light) return "ที่นอนมาตรฐาน";
+    if (soft && cool && back) return "ที่นอนรุ่น Aida Bonnel";
+    if (soft && cool) return "ที่นอนรุ่น GO Premium";
+    if (soft || light) return "ที่นอนรุ่น GO";
   }
 
   // ======================
   // 4️⃣ Fallback (ไม่มีวันหลุด)
   // ======================
-  if (cool || soft) return "ที่นอนมาตรฐานพิเศษ";
+  if (cool || soft) return "ที่นอนรุ่น GO Premium";
 
-  return "ที่นอนมาตรฐาน";
+  return "ที่นอนรุ่น GO";
 }
 
 // =======================
