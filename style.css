@@ -42,23 +42,39 @@ body {
 /* ===== ตัวเลือก ===== */
 .option {
   display: block;
-  padding: 16px;
-  margin-bottom: 12px;
-  border-radius: 16px;
-  border: 2px solid #eee;
+  padding: 14px 16px;
+  margin: 12px 0;
+  border-radius: 12px;
+  border: 2px solid #e0e0e0;
   cursor: pointer;
-  transition: 0.2s;
-  font-size: clamp(15px, 4vw, 16px);
-  padding: 16px;
+  font-size: 16px;
+  transition: all 0.25s ease;
+  background: #fff;
 }
 
+/* ซ่อน radio / checkbox */
 .option input {
   display: none;
 }
 
+/* 🔥 ไฮไลท์ตอนเลือก */
 .option.selected {
   border-color: #ff9800;
   background: #fff3e0;
+  font-weight: 600;
+}
+
+/* Hover (desktop) */
+.option:hover {
+  border-color: #ffcc80;
+}
+
+/* Mobile readability */
+@media (max-width: 768px) {
+  .option {
+    font-size: 17px;
+    padding: 16px;
+  }
 }
 
 /* ===== ปุ่ม ===== */
