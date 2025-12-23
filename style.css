@@ -108,3 +108,44 @@ button {
   color: #666;
   text-align: center;
 }
+/* ============================= */
+/* FIX HIGHLIGHT ANSWER (FINAL) */
+/* ============================= */
+
+/* ซ่อน radio / checkbox */
+.option input {
+  display: none;
+}
+
+/* default */
+.option {
+  display: block;
+  padding: 14px 16px;
+  margin: 12px 0;
+  border-radius: 12px;
+  border: 2px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.25s ease;
+}
+
+/* 🔥 ไฮไลท์จากสถานะจริง */
+.option:has(input:checked) {
+  border-color: #ff9800;
+  background: #fff3e0;
+  font-weight: 600;
+}
+
+/* hover desktop */
+.option:hover {
+  border-color: #ffcc80;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .option {
+    font-size: 17px;
+    padding: 16px;
+  }
+}
