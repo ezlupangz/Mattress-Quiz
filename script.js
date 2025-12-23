@@ -1,3 +1,6 @@
+// =======================
+// RESULT MAP
+// =======================
 const RESULT_MAP = {
   "ที่นอนรุ่น GO": {
     title: "ที่นอนรุ่น GO",
@@ -118,7 +121,7 @@ const questions = [
   {
     question: "ท่านอนที่ใช้บ่อย",
     type: "single",
-    options: ["นอนหงาย", "นอนตะแคง", "นอนคว่ำ","เปลี่ยนท่าบ่อย"]
+    options: ["นอนหงาย", "นอนตะแคง", "นอนคว่ำ", "เปลี่ยนท่าบ่อย"]
   },
   {
     question: "สิ่งที่ท่านต้องการสำหรับที่นอนลูกใหม่ (เลือกได้หลายคำตอบ)",
@@ -142,7 +145,7 @@ const nextBtn = document.getElementById("nextBtn");
 const backBtn = document.getElementById("backBtn");
 
 // =======================
-// RENDER
+// RENDER QUESTION
 // =======================
 function renderQuestion() {
   const q = questions[currentQuestion];
@@ -154,7 +157,6 @@ function renderQuestion() {
 
   q.options.forEach(option => {
     const checked = answers[currentQuestion]?.includes(option);
-
     html += `
       <label class="option ${checked ? "selected" : ""}">
         <input
@@ -168,59 +170,31 @@ function renderQuestion() {
     `;
   });
 
-  html += `
-    <div class="info-box">
-      ข้อมูลของท่านจะถูกนำไปวิเคราะห์โดยผู้เขี่ยวชาญด้านที่นอนที่มีประสบการณ์กว่า 30 ปี
-    </div>
-  `;
-
+  html += `<div class="info-box">ข้อมูลนี้ใช้เพื่อแนะนำที่นอนที่เหมาะกับคุณที่สุด</div>`;
   questionBox.innerHTML = html;
 
-  backBtn.style.display = currentQuestion === 0 ? "none" : "block";
-
-  document.querySelectorAll(`input[name="q${currentQuestion}"]`)
-    .forEach(input => {
-      input.addEventListener("change", () => {
-        const label = input.closest(".option");
-
-        if (q.type === "single") {
-          document.querySelectorAll(".option")
-            .forEach(o => o.classList.remove("selected"));
-          label.classList.add("selected");
-        } else {
-          label.classList.toggle("selected", input.checked);
-        }
-      });
-    });
+  backBtn.style.display = currentQuestion === 0 ? "none" : "inline-block";
 }
 
 // =======================
 // BUTTONS
 // =======================
 nextBtn.onclick = () => {
-  const resultKey = analyzeResult();
-const data = RESULT_MAP[resultKey];
+  const selected = document.querySelectorAll(`input[name="q${currentQuestion}"]:checked`);
+  if (!selected.length) {
+    alert("กรุณาเลือกคำตอบก่อน");
+    return;
+  }
 
-questionBox.innerHTML = `
-  <h2 class="question-title">${data.title}</h2>
-  <p style="text-align:center;font-size:18px;font-weight:600;color:#ff9800">
-    ${data.highlight}
-  </p>
+  answers[currentQuestion] = [...selected].map(i => i.value);
+  currentQuestion++;
 
-  <ul style="max-width:500px;margin:20px auto;font-size:16px;line-height:1.6">
-    ${data.features.map(f => `<li>✔ ${f}</li>`).join("")}
-  </ul>
-
-  <div class="info-box" style="font-size:14px">
-    💬 ${data.belief}
-  </div>
-
-  <div style="text-align:center;margin-top:24px">
-    <button class="cta-btn">สอบถามรายละเอียดเพิ่มเติม</button>
-  </div>
-`;
-
-
+  if (currentQuestion < questions.length) {
+    renderQuestion();
+  } else {
+    showResult();
+  }
+};
 
 backBtn.onclick = () => {
   currentQuestion--;
@@ -228,7 +202,7 @@ backBtn.onclick = () => {
 };
 
 // =======================
-// ANALYSIS (ตามที่คุณกำหนด)
+// ANALYZE
 // =======================
 function analyzeResult() {
   const ageGroup = answers[0]?.[0] || "";
@@ -243,63 +217,30 @@ function analyzeResult() {
 
   const score = [light, back, firm, cool, soft].filter(Boolean).length;
 
-  // ======================
-  // 1️⃣ กลุ่มยางพารา (ไม่มีสปริง)
-  // ======================
-  if (noSpring) {
-    return score >= 3
-      ? "ที่นอน OPPA Premium"
-      : "ที่นอนOPPA";
-  }
-
-  // ======================
-  // 2️⃣ Pocket Spring
-  // ======================
-  if (firm && back) {
-    return cool
-      ? "ที่นอนรุ่น Aida Pocket Spring"
-      : "ที่นอนรุ่น Findi";
-  }
-
-  // ======================
-  // 3️⃣ ที่นอนสปริง (อายุไม่เกิน 50)
-  // ======================
-  const ageOk =
-    ageGroup === "ต่ำกว่า 25 ปี" ||
-    ageGroup === "25–40 ปี" ||
-    ageGroup === "มากกว่า 40 ปี";
-
-  if (ageOk) {
-    if (soft && cool && back) return "ที่นอนรุ่น Aida Bonnel";
-    if (soft && cool) return "ที่นอนรุ่น GO Premium";
-    if (soft || light) return "ที่นอนรุ่น GO";
-  }
-
-  // ======================
-  // 4️⃣ Fallback (ไม่มีวันหลุด)
-  // ======================
-  if (cool || soft) return "ที่นอนรุ่น GO Premium";
-
+  if (noSpring) return score >= 3 ? "ที่นอน OPPA Premium" : "ที่นอน OPPA";
+  if (firm && back) return cool ? "ที่นอนรุ่น Aida Pocket Spring" : "ที่นอนรุ่น Findi";
+  if (soft && cool && back) return "ที่นอนรุ่น Aida Bonnel";
+  if (soft && cool) return "ที่นอนรุ่น GO Premium";
   return "ที่นอนรุ่น GO";
 }
 
 // =======================
-// GOOGLE SHEET
+// SHOW RESULT
 // =======================
-function sendToGoogleSheet(resultText) {
-  const params = new URLSearchParams();
+function showResult() {
+  const key = analyzeResult();
+  const data = RESULT_MAP[key];
 
-  params.append("age", answers[0]?.join(", ") || "");
-  params.append("weight", answers[1]?.join(", ") || "");
-  params.append("symptoms", answers[2]?.join(", ") || "");
-  params.append("sleep", answers[3]?.join(", ") || "");
-  params.append("needs", answers[4]?.join(", ") || "");
-  params.append("result", resultText || "");
+  questionBox.innerHTML = `
+    <h2 class="question-title">${data.title}</h2>
+    <p style="text-align:center;color:#ff9800;font-weight:600">${data.highlight}</p>
+    <ul>${data.features.map(f => `<li>✔ ${f}</li>`).join("")}</ul>
+    <div class="info-box">💬 ${data.belief}</div>
+  `;
 
-  fetch("https://script.google.com/macros/s/AKfycbyyxZWewDQjfJM0TA0poTr1h-FZBz2A7n-VN7YKVywbKCbm2d6tzWWqf2ZoxrCTCaTGaw/exec", {
-    method: "POST",
-    body: params
-  });
+  nextBtn.style.display = "none";
+  backBtn.style.display = "none";
 }
+
 // INIT
 renderQuestion();
