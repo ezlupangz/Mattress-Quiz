@@ -236,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
 
       <div style="text-align:center;margin-top:24px">
-        <button class="cta-btn">สอบถามรายละเอียดเพิ่มเติม</button>
+        <button class="cta-btn">ติดต่อสอบถามโปรโมชั่นได้ที่เพจได้เลยค่ะ</button>
       </div>
     `;
 
@@ -272,3 +272,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderQuestion();
 });
+
