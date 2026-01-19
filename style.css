@@ -148,8 +148,24 @@ button {
     font-size: 17px;
     padding: 16px;
   }
-  /* ============================= */
-/* RESULT INFO GRAPHIC FIX */
+ /* ============================= */
+/* LAYOUT */
+/* ============================= */
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #fffaf5;
+}
+
+.quiz-container {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ============================= */
+/* RESULT IMAGE */
 /* ============================= */
 
 .result-image-wrapper {
@@ -161,19 +177,41 @@ button {
 
 .result-image-wrapper img {
   width: 100%;
-  max-width: 420px;   /* 👈 ขอบซ้ายขวาสุด */
+  max-width: 420px;   /* 👈 ล็อกขอบซ้ายขวา */
   height: auto;
   border-radius: 16px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   background: #fff;
 }
 
-/* มือถือ */
-@media (max-width: 480px) {
-  .result-image-wrapper img {
-    max-width: 92vw;  /* กันล้นจอเล็กมาก */
-  }
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+button {
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#nextBtn {
+  background: #ff9800;
+  color: #fff;
+}
+
+#backBtn {
+  background: #eee;
 }
 
 }
+
+
 
