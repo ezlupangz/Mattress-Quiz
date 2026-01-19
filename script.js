@@ -14,33 +14,33 @@ document.addEventListener("DOMContentLoaded", () => {
         "สัมผัสนุ่ม นอนสบาย",
         "มีประกันจากทางโรงงาน"
       ],
-      belief: "เหมาะกับบ้านที่ต้องการความเรียบง่าย อยู่แล้วสบาย ไม่จุกจิก"
+      belief: "เหมาะกับบ้านที่ต้องการความเรียบง่าย อยู่แล้วสบาย"
     },
 
     "ที่นอนรุ่น GO Premium": {
       title: "ที่นอนรุ่น GO Premium",
       image: "images/go-premium.jpg",
-      highlight: "รุ่นอัปเกรดสำหรับคนต้องการความสบายมากขึ้น",
+      highlight: "รุ่นอัปเกรดเพื่อความสบายขั้นกว่า",
       features: [
         "หนาและแน่นมาก",
         "มีระบบระบายความร้อน",
         "สัมผัสนุ่ม",
         "มีประกันจากทางโรงงาน"
       ],
-      belief: "คนไทยเชื่อว่าที่นอนหนา แน่น คือความมั่นคง"
+      belief: "ที่นอนหนาแน่น คนไทยเชื่อว่าเสริมความมั่นคงชีวิต"
     },
 
-    "ที่นอนรุ่น aida-bonnel": {
+    "ที่นอนรุ่น Aida Bonnel": {
       title: "ที่นอนรุ่น Aida Two Euro Top",
       image: "images/aida-bonnel.jpg",
-      highlight: "ที่นอนสปริงมาตรฐานที่บาลานซ์ที่สุด",
+      highlight: "สปริงมาตรฐาน นอนสบาย",
       features: [
         "สัมผัสนุ่ม",
         "มีระบบระบายความร้อน",
-        "เสริมยางพาราอัด ลดอาการปวดหลัง",
+        "เสริมยางพาราอัด",
         "มีประกันจากทางโรงงาน"
       ],
-      belief: "เหมาะกับบ้านที่มีหลายวัย ใช้ร่วมกันได้"
+      belief: "เหมาะกับบ้านที่มีหลายวัย"
     },
 
     "ที่นอนรุ่น Findi": {
@@ -50,14 +50,14 @@ document.addEventListener("DOMContentLoaded", () => {
       features: [
         "สัมผัสนุ่มและแน่น",
         "รองรับสรีระ",
-        "กระจายแรงทั้งตัว",
+        "กระจายแรงดี",
         "ลดอาการปวดเมื่อย",
         "มีประกันจากทางโรงงาน"
       ],
       belief: "เหมาะกับคนทำงานหนัก"
     },
 
-    "ที่นอนรุ่น aida-pocket": {
+    "ที่นอนรุ่น Aida Pocket Spring": {
       title: "ที่นอนรุ่น Aida One Pocket Spring",
       image: "images/aida-pocket.jpg",
       highlight: "Pocket Spring ระดับพรีเมียม",
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
       image: "images/oppa.jpg",
       highlight: "ยางพาราแท้ ไม่มีสปริง",
       features: [
-        "ไม่มีสปริง",
+        "ไม่มีสปริงทั้งลูก",
         "ยางพาราแท้อัดแน่น",
         "น้ำหนักไม่หนัก",
         "ช่วยลดปวดหลัง",
@@ -91,12 +91,12 @@ document.addEventListener("DOMContentLoaded", () => {
       highlight: "ยางพาราระดับพรีเมียม",
       features: [
         "ไม่มีสปริง",
-        "ยางพาราแท้",
-        "ฟองน้ำเกรด A",
+        "ยางพาราแท้อัดแน่น",
+        "เสริมฟองน้ำเกรด A",
         "ผ้าขนมิงค์นุ่ม",
         "มีประกันจากทางโรงงาน"
       ],
-      belief: "ดูแลตัวเองและคนในบ้าน"
+      belief: "การลงทุนเพื่อสุขภาพคนในบ้าน"
     }
   };
 
@@ -104,34 +104,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // QUESTIONS
   // =======================
   const questions = [
+    { question: "อายุของคุณ", type: "single", options: ["ต่ำกว่า 25 ปี", "25–40 ปี", "มากกว่า 40 ปี"] },
+    { question: "น้ำหนักตัว", type: "single", options: ["ต่ำกว่า 60 kg", "60–80 kg", "มากกว่า 80 kg"] },
     {
-      question: "อายุของคุณ",
-      type: "single",
-      options: ["ต่ำกว่า 25 ปี", "25–40 ปี", "มากกว่า 40 ปี"]
-    },
-    {
-      question: "น้ำหนักตัว",
-      type: "single",
-      options: ["ต่ำกว่า 60 kg", "60–80 kg", "มากกว่า 80 kg"]
-    },
-    {
-      question: "อาการที่พบ (เลือกได้มากกว่า 1 ข้อ)",
+      question: "อาการที่พบ (เลือกได้หลายข้อ)",
       type: "multi",
-      options: [
-        "ปวดหลัง / ปวดเอว",
-        "ปวดคอ / ไหล่",
-        "นอนร้อน เหงื่อออกง่าย",
-        "แพ้ง่าย / ไรฝุ่น",
-        "ไม่มีอาการ"
-      ]
+      options: ["ปวดหลัง / ปวดเอว", "ปวดคอ / ไหล่", "นอนร้อน", "แพ้ง่าย", "ไม่มีอาการ"]
     },
+    { question: "ท่านอนที่ใช้บ่อย", type: "single", options: ["นอนหงาย", "นอนตะแคง", "นอนคว่ำ", "เปลี่ยนท่าบ่อย"] },
     {
-      question: "ท่านอนที่ใช้บ่อย",
-      type: "single",
-      options: ["นอนหงาย", "นอนตะแคง", "นอนคว่ำ", "เปลี่ยนท่าบ่อย"]
-    },
-    {
-      question: "สิ่งที่ต้องการสำหรับที่นอนใหม่ (เลือกได้หลายข้อ)",
+      question: "สิ่งที่ต้องการสำหรับที่นอนใหม่",
       type: "multi",
       options: [
         "สัมผัสนุ่ม นอนสบาย",
@@ -153,20 +135,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderQuestion() {
     const q = questions[currentQuestion];
-
     questionBox.innerHTML = `
       <h2 class="question-title">${q.question}</h2>
-      <div class="question-hint">กรุณาเลือกคำตอบ</div>
-      ${q.options.map(opt => `
+      ${q.options.map(o => `
         <label class="option">
-          <input type="${q.type === "multi" ? "checkbox" : "radio"}"
-                 name="q${currentQuestion}" value="${opt}">
-          ${opt}
+          <input type="${q.type === "multi" ? "checkbox" : "radio"}" name="q${currentQuestion}" value="${o}">
+          ${o}
         </label>
       `).join("")}
-      <div class="info-box">ข้อมูลใช้เพื่อแนะนำที่นอนที่เหมาะกับคุณ</div>
     `;
-
     backBtn.style.display = currentQuestion === 0 ? "none" : "inline-block";
   }
 
@@ -186,40 +163,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function showResult() {
-    const result = RESULT_MAP[analyzeResult()];
+    const key = analyzeResult();
+    const data = RESULT_MAP[key];
+
     questionBox.innerHTML = `
-  <h2 class="question-title">${data.title}</h2>
+      <h2 class="question-title">${data.title}</h2>
+      <img src="${data.image}" style="max-width:420px;margin:16px auto;display:block;border-radius:16px">
+      <p style="text-align:center;color:#ff9800;font-weight:600">${data.highlight}</p>
+      <ul>${data.features.map(f => `<li>✔ ${f}</li>`).join("")}</ul>
+      <div class="info-box">💬 ${data.belief}</div>
+    `;
 
-  <img 
-    src="${data.image}" 
-    alt="${data.title}"
-    style="
-      width:100%;
-      max-width:420px;
-      display:block;
-      margin:16px auto;
-      border-radius:16px;
-      box-shadow:0 6px 20px rgba(0,0,0,0.15);
-    "
-  />
-
-  <p style="text-align:center;font-size:18px;font-weight:600;color:#ff9800">
-    ${data.highlight}
-  </p>
-
-  <ul style="max-width:500px;margin:20px auto;font-size:16px;line-height:1.7">
-    ${data.features.map(f => `<li>✔ ${f}</li>`).join("")}
-  </ul>
-
-  <div class="info-box" style="font-size:14px">
-    💬 ${data.belief}
-  </div>
-
-  <div style="text-align:center;margin-top:24px">
-    <button class="cta-btn">สอบถามรายละเอียดเพิ่มเติม</button>
-  </div>
-`;
-
+    nextBtn.style.display = "none";
+    backBtn.style.display = "none";
   }
 
   nextBtn.onclick = () => {
@@ -237,4 +193,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderQuestion();
 });
-
