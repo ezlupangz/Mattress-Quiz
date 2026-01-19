@@ -163,19 +163,36 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function showResult() {
-    const key = analyzeResult();
-    const data = RESULT_MAP[key];
+  const key = analyzeResult();
+  const data = RESULT_MAP[key];
 
-    questionBox.innerHTML = `
-      <h2 class="question-title">${data.title}</h2>
-      <img src="${data.image}" style="max-width:420px;margin:16px auto;display:block;border-radius:16px">
-      <p style="text-align:center;color:#ff9800;font-weight:600">${data.highlight}</p>
-      <ul>${data.features.map(f => `<li>✔ ${f}</li>`).join("")}</ul>
-      <div class="info-box">💬 ${data.belief}</div>
-    `;
+  questionBox.innerHTML = `
+    <h2 class="question-title">${data.title}</h2>
 
-    nextBtn.style.display = "none";
-    backBtn.style.display = "none";
+    <div class="result-image-wrapper">
+      <img src="${data.image}" alt="${data.title}">
+    </div>
+
+    <p style="text-align:center;font-size:18px;font-weight:600;color:#ff9800">
+      ${data.highlight}
+    </p>
+
+    <ul style="max-width:420px;margin:20px auto;font-size:16px;line-height:1.7">
+      ${data.features.map(f => `<li>✔ ${f}</li>`).join("")}
+    </ul>
+
+    <div class="info-box" style="font-size:14px">
+      💬 ${data.belief}
+    </div>
+
+    <div style="text-align:center;margin-top:24px">
+      <button class="cta-btn">สอบถามรายละเอียดเพิ่มเติม</button>
+    </div>
+  `;
+
+  document.querySelector(".button-group").style.display = "none";
+}
+
   }
 
   nextBtn.onclick = () => {
@@ -193,3 +210,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderQuestion();
 });
+
