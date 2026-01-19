@@ -4,26 +4,32 @@
   <meta charset="UTF-8">
   <title>แบบทดสอบเลือกที่นอน</title>
 
-  <!-- สำคัญมาก ต้องอยู่ใน head -->
+  <!-- สำคัญมาก -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
- <div class="result-image-wrapper">
-  <img src="${data.image}" alt="${data.title}">
+  <div class="quiz-container">
+
+    <!-- กล่องคำถาม / ผลลัพธ์ -->
     <div id="question-box"></div>
 
+    <!-- ปุ่มควบคุม -->
     <div class="button-group">
       <button id="backBtn">ย้อนกลับ</button>
       <button id="nextBtn">ถัดไป</button>
     </div>
+
   </div>
 
   <!-- โหลด JS หลัง DOM -->
   <script src="script.js"></script>
 </body>
 </html>
+
+
 
 
