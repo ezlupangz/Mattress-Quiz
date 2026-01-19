@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const RESULT_MAP = {
     "ที่นอนรุ่น GO": {
       title: "ที่นอนรุ่น GO",
+      image: "images/go.jpg",
       highlight: "รุ่นมาตรฐานขายดีที่สุด",
       features: [
         "เป็นที่นอนมาตรฐานของเรา",
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     "ที่นอนรุ่น GO Premium": {
       title: "ที่นอนรุ่น GO Premium",
+      image: "images/go-premium.jpg",
       highlight: "รุ่นอัปเกรดสำหรับคนต้องการความสบายมากขึ้น",
       features: [
         "หนาและแน่นมาก",
@@ -28,8 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
       belief: "คนไทยเชื่อว่าที่นอนหนา แน่น คือความมั่นคง"
     },
 
-    "ที่นอนรุ่น Aida Bonnel": {
-      title: "ที่นอนรุ่น Aida Bonnel",
+    "ที่นอนรุ่น aida-bonnel": {
+      title: "ที่นอนรุ่น Aida Two Euro Top",
+      image: "images/aida-bonnel.jpg",
       highlight: "ที่นอนสปริงมาตรฐานที่บาลานซ์ที่สุด",
       features: [
         "สัมผัสนุ่ม",
@@ -42,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     "ที่นอนรุ่น Findi": {
       title: "ที่นอนรุ่น Findi",
+      image: "images/findi.jpg",
       highlight: "Pocket Spring รองรับสรีระดีเยี่ยม",
       features: [
         "สัมผัสนุ่มและแน่น",
@@ -53,8 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
       belief: "เหมาะกับคนทำงานหนัก"
     },
 
-    "ที่นอนรุ่น Aida Pocket Spring": {
-      title: "ที่นอนรุ่น Aida Pocket Spring",
+    "ที่นอนรุ่น aida-pocket": {
+      title: "ที่นอนรุ่น Aida One Pocket Spring",
+      image: "images/aida-pocket.jpg",
       highlight: "Pocket Spring ระดับพรีเมียม",
       features: [
         "สัมผัสนุ่ม",
@@ -68,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     "ที่นอน OPPA": {
       title: "ที่นอน OPPA",
+      image: "images/oppa.jpg",
       highlight: "ยางพาราแท้ ไม่มีสปริง",
       features: [
         "ไม่มีสปริง",
@@ -81,6 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     "ที่นอน OPPA Premium": {
       title: "ที่นอน OPPA Premium",
+      image: "images/oppa-premium.jpg",
       highlight: "ยางพาราระดับพรีเมียม",
       features: [
         "ไม่มีสปริง",
@@ -181,13 +188,38 @@ document.addEventListener("DOMContentLoaded", () => {
   function showResult() {
     const result = RESULT_MAP[analyzeResult()];
     questionBox.innerHTML = `
-      <h2 class="question-title">${result.title}</h2>
-      <p style="text-align:center;color:#ff9800;font-weight:600">${result.highlight}</p>
-      <ul>${result.features.map(f => `<li>✔ ${f}</li>`).join("")}</ul>
-      <div class="info-box">💬 ${result.belief}</div>
-    `;
-    nextBtn.style.display = "none";
-    backBtn.style.display = "none";
+  <h2 class="question-title">${data.title}</h2>
+
+  <img 
+    src="${data.image}" 
+    alt="${data.title}"
+    style="
+      width:100%;
+      max-width:420px;
+      display:block;
+      margin:16px auto;
+      border-radius:16px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.15);
+    "
+  />
+
+  <p style="text-align:center;font-size:18px;font-weight:600;color:#ff9800">
+    ${data.highlight}
+  </p>
+
+  <ul style="max-width:500px;margin:20px auto;font-size:16px;line-height:1.7">
+    ${data.features.map(f => `<li>✔ ${f}</li>`).join("")}
+  </ul>
+
+  <div class="info-box" style="font-size:14px">
+    💬 ${data.belief}
+  </div>
+
+  <div style="text-align:center;margin-top:24px">
+    <button class="cta-btn">สอบถามรายละเอียดเพิ่มเติม</button>
+  </div>
+`;
+
   }
 
   nextBtn.onclick = () => {
@@ -205,3 +237,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderQuestion();
 });
+
