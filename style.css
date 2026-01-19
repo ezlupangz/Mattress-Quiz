@@ -148,4 +148,32 @@ button {
     font-size: 17px;
     padding: 16px;
   }
+  /* ============================= */
+/* RESULT INFO GRAPHIC FIX */
+/* ============================= */
+
+.result-image-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
 }
+
+.result-image-wrapper img {
+  width: 100%;
+  max-width: 420px;   /* 👈 ขอบซ้ายขวาสุด */
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  background: #fff;
+}
+
+/* มือถือ */
+@media (max-width: 480px) {
+  .result-image-wrapper img {
+    max-width: 92vw;  /* กันล้นจอเล็กมาก */
+  }
+}
+
+}
+
