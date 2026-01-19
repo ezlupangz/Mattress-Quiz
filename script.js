@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // =======================
-  // RESULT MAP
-  // =======================
+  /* =======================
+     RESULT MAP
+  ======================= */
+
   const RESULT_MAP = {
     "ที่นอนรุ่น GO": {
       title: "ที่นอนรุ่น GO",
@@ -100,18 +101,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // =======================
-  // QUESTIONS
-  // =======================
+  /* =======================
+     QUESTIONS
+  ======================= */
+
   const questions = [
-    { question: "อายุของคุณ", type: "single", options: ["ต่ำกว่า 25 ปี", "25–40 ปี", "มากกว่า 40 ปี"] },
-    { question: "น้ำหนักตัว", type: "single", options: ["ต่ำกว่า 60 kg", "60–80 kg", "มากกว่า 80 kg"] },
+    {
+      question: "อายุของคุณ",
+      type: "single",
+      options: ["ต่ำกว่า 25 ปี", "25–40 ปี", "มากกว่า 40 ปี"]
+    },
+    {
+      question: "น้ำหนักตัว",
+      type: "single",
+      options: ["ต่ำกว่า 60 kg", "60–80 kg", "มากกว่า 80 kg"]
+    },
     {
       question: "อาการที่พบ (เลือกได้หลายข้อ)",
       type: "multi",
-      options: ["ปวดหลัง / ปวดเอว", "ปวดคอ / ไหล่", "นอนร้อน", "แพ้ง่าย", "ไม่มีอาการ"]
+      options: [
+        "ปวดหลัง / ปวดเอว",
+        "ปวดคอ / ไหล่",
+        "นอนร้อน",
+        "แพ้ง่าย",
+        "ไม่มีอาการ"
+      ]
     },
-    { question: "ท่านอนที่ใช้บ่อย", type: "single", options: ["นอนหงาย", "นอนตะแคง", "นอนคว่ำ", "เปลี่ยนท่าบ่อย"] },
+    {
+      question: "ท่านอนที่ใช้บ่อย",
+      type: "single",
+      options: ["นอนหงาย", "นอนตะแคง", "นอนคว่ำ", "เปลี่ยนท่าบ่อย"]
+    },
     {
       question: "สิ่งที่ต้องการสำหรับที่นอนใหม่",
       type: "multi",
@@ -126,81 +146,123 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   ];
 
+  /* =======================
+     STATE
+  ======================= */
+
   let currentQuestion = 0;
-  let answers = [];
+  const answers = [];
 
   const questionBox = document.getElementById("question-box");
   const nextBtn = document.getElementById("nextBtn");
   const backBtn = document.getElementById("backBtn");
 
+  /* =======================
+     RENDER QUESTION
+  ======================= */
+
   function renderQuestion() {
     const q = questions[currentQuestion];
+
     questionBox.innerHTML = `
       <h2 class="question-title">${q.question}</h2>
-      ${q.options.map(o => `
+      ${q.options.map(opt => `
         <label class="option">
-          <input type="${q.type === "multi" ? "checkbox" : "radio"}" name="q${currentQuestion}" value="${o}">
-          ${o}
+          <input 
+            type="${q.type === "multi" ? "checkbox" : "radio"}"
+            name="q${currentQuestion}"
+            value="${opt}"
+          >
+          ${opt}
         </label>
       `).join("")}
     `;
+
     backBtn.style.display = currentQuestion === 0 ? "none" : "inline-block";
   }
 
+  /* =======================
+     ANALYZE RESULT
+  ======================= */
+
   function analyzeResult() {
     const needs = answers[4] || [];
+
     const noSpring = needs.includes("ต้องการที่นอนที่ไม่มีสปริง");
     const firm = needs.includes("ความแน่นหนา ไม่ยุบตัวง่าย");
     const back = needs.includes("ลดอาการปวดหลัง/ปวดเมื่อย");
     const cool = needs.includes("ไม่ร้อน ระบายอากาศได้ดี");
     const soft = needs.includes("สัมผัสนุ่ม นอนสบาย");
 
-    if (noSpring) return needs.length >= 3 ? "ที่นอน OPPA Premium" : "ที่นอน OPPA";
-    if (firm && back) return cool ? "ที่นอนรุ่น Aida Pocket Spring" : "ที่นอนรุ่น Findi";
+    if (noSpring) {
+      return needs.length >= 3 ? "ที่นอน OPPA Premium" : "ที่นอน OPPA";
+    }
+
+    if (firm && back) {
+      return cool ? "ที่นอนรุ่น Aida Pocket Spring" : "ที่นอนรุ่น Findi";
+    }
+
     if (soft && cool && back) return "ที่นอนรุ่น Aida Bonnel";
     if (soft && cool) return "ที่นอนรุ่น GO Premium";
+
     return "ที่นอนรุ่น GO";
   }
 
+  /* =======================
+     SHOW RESULT
+  ======================= */
+
   function showResult() {
-  const key = analyzeResult();
-  const data = RESULT_MAP[key];
+    const key = analyzeResult();
+    const data = RESULT_MAP[key];
 
-  questionBox.innerHTML = `
-    <h2 class="question-title">${data.title}</h2>
+    questionBox.innerHTML = `
+      <h2 class="question-title">${data.title}</h2>
 
-    <div class="result-image-wrapper">
-      <img src="${data.image}" alt="${data.title}">
-    </div>
+      <div class="result-image-wrapper">
+        <img src="${data.image}" alt="${data.title}">
+      </div>
 
-    <p style="text-align:center;font-size:18px;font-weight:600;color:#ff9800">
-      ${data.highlight}
-    </p>
+      <p style="text-align:center;font-size:18px;font-weight:600;color:#ff9800">
+        ${data.highlight}
+      </p>
 
-    <ul style="max-width:420px;margin:20px auto;font-size:16px;line-height:1.7">
-      ${data.features.map(f => `<li>✔ ${f}</li>`).join("")}
-    </ul>
+      <ul style="max-width:420px;margin:20px auto;font-size:16px;line-height:1.7">
+        ${data.features.map(f => `<li>✔ ${f}</li>`).join("")}
+      </ul>
 
-    <div class="info-box" style="font-size:14px">
-      💬 ${data.belief}
-    </div>
+      <div class="info-box">
+        💬 ${data.belief}
+      </div>
 
-    <div style="text-align:center;margin-top:24px">
-      <button class="cta-btn">สอบถามรายละเอียดเพิ่มเติม</button>
-    </div>
-  `;
+      <div style="text-align:center;margin-top:24px">
+        <button class="cta-btn">สอบถามรายละเอียดเพิ่มเติม</button>
+      </div>
+    `;
 
-  document.querySelector(".button-group").style.display = "none";
-}
-
+    document.querySelector(".button-group").style.display = "none";
   }
 
+  /* =======================
+     EVENTS
+  ======================= */
+
   nextBtn.onclick = () => {
-    const selected = document.querySelectorAll(`input[name="q${currentQuestion}"]:checked`);
-    if (!selected.length) return alert("กรุณาเลือกคำตอบ");
+    const selected = document.querySelectorAll(
+      `input[name="q${currentQuestion}"]:checked`
+    );
+
+    if (!selected.length) {
+      alert("กรุณาเลือกคำตอบ");
+      return;
+    }
+
     answers[currentQuestion] = [...selected].map(i => i.value);
     currentQuestion++;
-    currentQuestion < questions.length ? renderQuestion() : showResult();
+
+    currentQuestion < questions.length
+      ? renderQuestion()
+      : showResult();
   };
 
   backBtn.onclick = () => {
@@ -210,4 +272,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderQuestion();
 });
-
